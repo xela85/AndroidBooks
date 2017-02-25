@@ -43,15 +43,16 @@ public class BooksActivity extends AppCompatActivity implements BookSelectListen
         } else if(savedInstanceState.getParcelable("book") != null) {
             book = savedInstanceState.getParcelable("book");
             if(twoPanels) {
-                System.out.println("two panels");
                 this.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.master, new BookListFragment(), BookListFragment.class.getSimpleName())
                         .replace(R.id.detail, BookDetailFragment.newInstance(book), BookDetailFragment.class.getSimpleName())
                         .commit();
             } else {
-                System.out.println("one panel");
+                // one panel
                 this.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.master, new BookListFragment(), BookListFragment.class.getSimpleName())
                         .replace(R.id.master, BookDetailFragment.newInstance(book), BookDetailFragment.class.getSimpleName())
+                        .addToBackStack(BookDetailFragment.class.getSimpleName())
                         .commit();
             }
         }
